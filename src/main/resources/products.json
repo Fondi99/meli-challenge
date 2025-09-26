@@ -1,0 +1,73 @@
+[
+  {
+    "id": 1,
+    "name": "Laptop Air 13",
+    "imageUrl": "https://example.com/laptop-air.jpg",
+    "description": "Lightweight and portable laptop.",
+    "price": 899.99,
+    "rating": 4.3,
+    "specifications": {
+      "cpu": "Intel i5",
+      "ram": "8GB",
+      "storage": "256GB SSD",
+      "screen": "13-inch Retina"
+    }
+  },
+  {
+    "id": 2,
+    "name": "Laptop Pro 16",
+    "imageUrl": "https://example.com/laptop-pro16.jpg",
+    "description": "A powerful laptop for professionals.",
+    "price": 1299.99,
+    "rating": 4.7,
+    "specifications": {
+      "cpu": "Intel i7",
+      "ram": "16GB",
+      "storage": "512GB SSD",
+      "screen": "16-inch Retina"
+    }
+  },
+  {
+    "id": 3,
+    "name": "Laptop Pro 14",
+    "imageUrl": "https://example.com/laptop-pro14.jpg",
+    "description": "A smaller but powerful professional laptop.",
+    "price": 1199.99,
+    "rating": 4.6,
+    "specifications": {
+      "cpu": "Intel i7",
+      "ram": "16GB",
+      "storage": "512GB SSD",
+      "screen": "14-inch Retina"
+    }
+  },
+  {
+    "id": 4,
+    "name": "Laptop Gamer X",
+    "imageUrl": "https://example.com/laptop-gamer.jpg",
+    "description": "High-performance gaming laptop.",
+    "price": 1499.99,
+    "rating": 4.8,
+    "specifications": {
+      "cpu": "Intel i9",
+      "ram": "32GB",
+      "storage": "1TB SSD",
+      "gpu": "NVIDIA RTX 3070",
+      "screen": "15.6-inch Full HD"
+    }
+  },
+  {
+    "id": 5,
+    "name": "Laptop Budget 15",
+    "imageUrl": "https://example.com/laptop-budget.jpg",
+    "description": "Affordable laptop for everyday use.",
+    "price": 499.99,
+    "rating": 4.0,
+    "specifications": {
+      "cpu": "Intel i3",
+      "ram": "8GB",
+      "storage": "256GB SSD",
+      "screen": "15-inch HD"
+    }
+  }
+]
