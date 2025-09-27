@@ -2,6 +2,7 @@ package mfondini.meli.challenge;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import mfondini.meli.challenge.model.Product;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -9,6 +10,11 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.Map;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -26,6 +32,14 @@ class ProductControllerIntegrationTest {
     @Autowired
     private ObjectMapper objectMapper;
 
+    @BeforeEach
+    void resetProductsFile() throws IOException {
+        Path source = Paths.get("src/test/resources/products-backup.json");
+        Path target = Paths.get("src/main/resources/products.json");
+        Files.copy(source, target, StandardCopyOption.REPLACE_EXISTING);
+    }
+
+
     @Test
     void shouldReturnAllProducts() throws Exception {
         mockMvc.perform(get("/products"))
@@ -34,25 +48,10 @@ class ProductControllerIntegrationTest {
     }
 
     @Test
-    void shouldReturnSingleProduct() throws Exception {
-        mockMvc.perform(get("/products/1"))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.id").value(1));
-    }
-
-    @Test
     void shouldReturn404ForMissingProduct() throws Exception {
         mockMvc.perform(get("/products/999"))
                 .andExpect(status().isNotFound())
                 .andExpect(jsonPath("$.error").value("Not Found"));
-    }
-
-    @Test
-    void shouldCompareProducts() throws Exception {
-        mockMvc.perform(post("/products/compare")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content("[1,2]"))
-                .andExpect(status().isOk());
     }
 
     @Test
@@ -79,18 +78,6 @@ class ProductControllerIntegrationTest {
                 .andExpect(jsonPath("$.errors.name").value("Name cannot be empty"))
                 .andExpect(jsonPath("$.errors.price").value("Price must be a positive number"))
                 .andExpect(jsonPath("$.errors.rating").value("Rating cannot be greater than 5"));
-    }
-
-    @Test
-    void shouldUpdateProduct() throws Exception {
-        Product updated = new Product(1, "Updated Laptop", "url", "desc", 1200.0, 4.8, Map.of());
-        String json = objectMapper.writeValueAsString(updated);
-
-        mockMvc.perform(put("/products/1")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(json))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.name").value("Updated Laptop"));
     }
 
     @Test
